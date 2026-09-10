@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>충주시평생학습박람회 충주愛(AI) 충주 어서오고 퀴즈</title>
+  <title>제 9회 충주시평생학습박람회 충주愛(AI) 충주 어서오고 퀴즈</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Canvas Confetti CDN for Celebration -->
+  <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   
   <!-- FontAwesome Icons -->
@@ -26,20 +26,6 @@
           fontFamily: {
             sans: ['"Noto Sans KR"', 'sans-serif'],
             jua: ['"Jua"', 'sans-serif'],
-          },
-          colors: {
-            chungju: {
-              sky: '#0284c7',
-              deep: '#0369a1',
-              apple: '#e11d48',
-              leaf: '#16a34a',
-              sand: '#fef3c7',
-              otter: '#78350f'
-            }
-          },
-          animation: {
-            'bounce-slow': 'bounce 2.5s infinite',
-            'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           }
         }
       }
@@ -51,202 +37,263 @@
       user-select: none;
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
-      background: linear-gradient(145deg, #e0f2fe 0%, #f0fdf4 50%, #fef9c3 100%);
+      background: radial-gradient(circle at 50% 10%, #dbeafe 0%, #eff6ff 45%, #fef3c7 100%);
       min-height: 100vh;
-    }
-    
-    .btn-press {
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-    }
-    .btn-press:active {
-      transform: scale(0.96) translateY(2px);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    @keyframes floatBubble {
+    /* Soft Vinyl Toy / 3D Clay Aesthetics */
+    .vinyl-container {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 36px;
+      box-shadow: 
+        0 24px 48px -12px rgba(37, 99, 235, 0.18),
+        0 12px 24px -6px rgba(0, 0, 0, 0.06),
+        inset 0 -6px 12px rgba(37, 99, 235, 0.05),
+        inset 0 4px 8px rgba(255, 255, 255, 0.9);
+      position: relative;
+    }
+
+    /* 3D Toy Button with glossy highlight */
+    .toy-btn {
+      position: relative;
+      border-radius: 20px;
+      transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+    .toy-btn::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 12px;
+      right: 12px;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: 18px 18px 6px 6px;
+      pointer-events: none;
+    }
+    .toy-btn:active {
+      transform: translateY(4px) scale(0.98);
+    }
+
+    /* O & X 3D Vinyl Pill Button without border */
+    .vinyl-ox-btn {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .vinyl-ox-btn::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 15%;
+      width: 70%;
+      height: 32%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%);
+      border-radius: 30px;
+      pointer-events: none;
+    }
+    .vinyl-ox-btn:active {
+      transform: translateY(5px) scale(0.97);
+    }
+
+    /* Soft vinyl character shadow float (Pure PNG floating without frame) */
+    .toy-float {
+      filter: drop-shadow(0 18px 22px rgba(37, 99, 235, 0.25)) drop-shadow(0 6px 10px rgba(0,0,0,0.1));
+      animation: floatToy 3.8s ease-in-out infinite;
+    }
+    @keyframes floatToy {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-7px) rotate(1.5deg); }
-    }
-    .floating-card {
-      animation: floatBubble 4s ease-in-out infinite;
+      50% { transform: translateY(-7px) rotate(1deg); }
     }
 
-    .tamdari-3d-glow {
-      filter: drop-shadow(0 12px 18px rgba(2, 132, 199, 0.28)) drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    /* Smooth Clay Card */
+    .clay-card {
+      background: linear-gradient(165deg, #ffffff 0%, #f8faff 100%);
+      border-radius: 24px;
+      box-shadow: 
+        0 10px 20px rgba(148, 163, 184, 0.1),
+        inset 0 3px 6px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 4px rgba(203, 213, 225, 0.12);
+    }
+
+    /* Text-Only Enlargement: Enlarges font WITHOUT enlarging layout boundaries */
+    .large-text-mode #quiz-question-text {
+      font-size: 1.65rem !important;
+      line-height: 1.35 !important;
+    }
+    .large-text-mode #feedback-explanation {
+      font-size: 1.25rem !important;
+      line-height: 1.45 !important;
+    }
+    .large-text-mode #hint-modal-text {
+      font-size: 1.25rem !important;
     }
   </style>
 </head>
-<body class="font-sans text-slate-800 flex flex-col items-center justify-center p-2.5 sm:p-5 antialiased min-h-screen">
+<body class="font-sans text-slate-800 p-2 sm:p-4">
 
-  <main id="app-container" class="w-full max-w-xl bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border-4 border-sky-400 overflow-hidden flex flex-col relative transition-all duration-300 min-h-[660px] max-h-[96vh]">
+  <!-- Main Container -->
+  <main id="app-container" class="vinyl-container w-full max-w-lg overflow-hidden flex flex-col min-h-[670px] max-h-[96vh]">
     
-    <!-- Header with Title & Accessibility Controls -->
-    <header class="bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white px-4 py-3 flex items-center justify-between shadow-md">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 p-0.5 border border-white/40 shadow-sm flex items-center justify-center overflow-hidden shrink-0">
+    <header class="bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 text-white px-3.5 py-3 flex items-center justify-between shadow-md relative z-10 border-b-2 border-white/20 shrink-0">
+      <div class="flex items-center space-x-2 min-w-0 pr-1">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/30 p-1 border-2 border-white/60 shadow-md flex items-center justify-center overflow-hidden shrink-0">
           <img src="https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal2.png" 
                alt="평달이 미니 아이콘" 
-               class="w-full h-full object-contain"
+               class="w-full h-full object-contain filter drop-shadow"
                onerror="handleTamdariFallback(this)">
         </div>
-        <div>
-          <h1 class="font-jua text-base sm:text-lg tracking-wide leading-tight">
-            제 9회 충주시평생학습박람회</br> 충주愛(AI) 충주 어서오고 퀴즈
+        <div class="min-w-0">
+          <h1 class="font-jua text-xs sm:text-sm tracking-wide leading-tight drop-shadow-sm">
+            제 9회 충주시평생학습박람회<br>
+            <span class="text-amber-300">충주愛(AI) 충주 어서오고 퀴즈</span>
           </h1>
-          <p class="text-[11px] text-sky-100 font-medium">충주시 평생학습관 ∙ 친절한 가이드 평달이와 함께</p>
         </div>
       </div>
-      <div class="flex items-center space-x-1.5">
+
+      <!-- Icon-Only Audio & Font Buttons (Color ON/OFF without text to avoid wrapping) -->
+      <div class="flex items-center space-x-1.5 shrink-0">
         <!-- BGM Toggle Button -->
-        <button id="btn-bgm-toggle" class="bg-white/20 hover:bg-white/30 text-white w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs shadow transition" title="배경음악 켜기/끄기" aria-label="배경음악 설정">
-          <i id="icon-bgm" class="fa-solid fa-music"></i>
+        <button id="btn-bgm-toggle" class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-all shadow-md bg-emerald-500 hover:scale-105 active:scale-95" title="배경음악 켜기/끄기" aria-label="배경음악">
+          <i id="icon-bgm" class="fa-solid fa-music text-sm"></i>
         </button>
-        <!-- Sound Effect Toggle -->
-        <button id="btn-sound-toggle" class="bg-white/20 hover:bg-white/30 text-white w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-sm shadow transition" title="효과음 켜기/끄기" aria-label="효과음 설정">
-          <i id="icon-sound" class="fa-solid fa-volume-high"></i>
+
+        <!-- Sound FX Toggle Button -->
+        <button id="btn-sound-toggle" class="w-9 h-9 rounded-full flex items-center justify-center text-white transition-all shadow-md bg-emerald-500 hover:scale-105 active:scale-95" title="효과음 켜기/끄기" aria-label="효과음">
+          <i id="icon-sound" class="fa-solid fa-volume-high text-sm"></i>
         </button>
-        <!-- Font Size Boost for Seniors -->
-        <button id="btn-font-toggle" class="bg-white/20 hover:bg-white/30 text-white px-2 py-1 rounded-full text-xs font-bold shadow flex items-center gap-0.5 transition" title="글씨 크기 확대" aria-label="글씨 크게 보기">
-          <span class="text-xs">가</span><span class="text-sm font-black">+</span>
+
+        <!-- Senior Font Size Toggle (Text-only scale) -->
+        <button id="btn-font-toggle" class="w-9 h-9 rounded-full flex items-center justify-center bg-white/25 hover:bg-white/40 text-white font-black text-xs transition-all shadow-md active:scale-95" title="글씨 크기 확대">
+          <span>가+</span>
         </button>
       </div>
     </header>
 
-    <section id="screen-start" class="flex-1 flex flex-col items-center justify-between p-5 sm:p-7 text-center">
+    <section id="screen-start" class="flex-1 flex flex-col items-center justify-between p-5 sm:p-6 text-center">
       
-      <!-- Top Event Badge -->
+      <!-- Event Header Tag -->
       <div class="w-full">
-        <div class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-900 border border-amber-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-sm mb-2">
-          <i class="fa-solid fa-graduation-cap text-amber-600"></i> 제9회 충주시 평생학습박람회 특별 이벤트
+        <div class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-900 border border-amber-300/80 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-xs mb-1.5">
+          <span>🎓</span> 제9회 충주시 평생학습박람회 부스 이벤트
         </div>
         <h2 class="font-jua text-2xl sm:text-3xl text-slate-800 tracking-tight leading-snug">
-          충주愛(AI) 가이드 평달이와 함께하는<br>
-          <span class="text-sky-600 underline decoration-amber-400 decoration-wavy underline-offset-4">충주 문화관광 퀴즈</span>
+          가이드 <span class="text-blue-600">평달이</span>와 함께 떠나는<br>
+          <span class="text-amber-500 underline decoration-sky-300 decoration-wavy underline-offset-4">충주 문화관광 퀴즈</span>
         </h2>
       </div>
 
-      <!-- Center 3D Tamdari Image Box -->
-      <div class="my-2 relative flex flex-col items-center">
-        <div class="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-gradient-to-tr from-sky-100 via-amber-50 to-orange-100 p-2.5 shadow-xl floating-card flex items-center justify-center overflow-hidden">
-          
-          <!-- Official Character Image from Github -->
+      <!-- Enlarged 3D Pyeongdal Character (Complete border and box removed, pure floating PNG) -->
+      <div class="my-auto py-2 relative flex flex-col items-center justify-center w-full">
+        <div class="relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
           <img id="main-tamdari-3d" 
                src="https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal_01.png" 
-               alt="충주시평생학습박람회 평달이 3D" 
-               class="w-full h-full object-contain tamdari-3d-glow"
+               alt="평달이 3D 소프트 비닐" 
+               class="w-full h-full object-contain toy-float select-none"
                onerror="handleTamdariFallback(this)">
           
-          <!-- Tamdari Speech Bubble -->
-          <div class="absolute top-2 right-2 bg-white/95 border border-sky-300 shadow-md rounded-2xl px-2.5 py-1 text-[11px] font-black text-sky-800 flex items-center gap-1">
-            <span class="text-xs">🐾</span> 어서오고!
+          <!-- Soft Speech Bubble -->
+          <div class="absolute -top-1 right-2 bg-white/95 border border-sky-200 shadow-md rounded-2xl px-3 py-1 text-xs font-black text-sky-800 flex items-center gap-1">
+            <span>🐾</span> 어서오고!
           </div>
         </div>
 
         <!-- Reward Badge -->
-        <div class="mt-2 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg border-2 border-white animate-bounce-slow flex items-center gap-1.5">
-          <span>✨ 평달이 캐릭터 스티커 &amp; 기념품 증정!</span>
+        <div class="mt-2 bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-md border-2 border-white flex items-center gap-1.5">
+          <span>✨ 귀여운 평달이 스티커 &amp; 기념품 증정!</span>
         </div>
       </div>
 
-      <!-- Kiosk Instruction Box -->
-      <div class="bg-amber-50/80 border-2 border-amber-200 rounded-2xl p-3 sm:p-4 text-xs sm:text-sm text-slate-700 w-full flex flex-col gap-1 shadow-sm">
-        <div class="flex items-center justify-center gap-1.5 font-bold text-amber-900">
-          <i class="fa-solid fa-hand-pointer text-amber-600"></i> 단 한 번 터치로 누구나 쉽게 도전!
+      <!-- Simple Rules Box -->
+      <div class="clay-card p-3.5 sm:p-4 text-xs sm:text-sm text-slate-700 w-full flex flex-col gap-1">
+        <div class="flex items-center justify-center gap-1.5 font-black text-blue-900">
+          <i class="fa-solid fa-hand-pointer text-amber-500"></i> 단 3번의 터치로 누구든 쉽게 풀어요!
         </div>
-        <p class="text-slate-600 leading-tight">
-          총 <strong class="text-sky-600 font-bold">5문제</strong> (문제당 20초) ∙ 
-          <span class="text-emerald-700 font-semibold">음성 낭독</span> ∙ 
-          <span class="text-amber-700 font-semibold">힌트</span> 제공
+        <p class="text-slate-600 font-semibold leading-tight">
+          총 <strong class="text-blue-600 font-bold">5문제</strong> (문제당 20초) ∙ 
+          <span class="text-emerald-700 font-bold">음성 듣기 시 시간 일시정지</span> ∙ 
+          <span class="text-amber-700 font-bold">힌트</span> 제공
         </p>
       </div>
 
-      <!-- Direct Start Button -->
-      <button id="btn-start-quiz" class="btn-press w-full mt-3 bg-gradient-to-r from-amber-500 via-orange-500 to-sky-500 hover:from-amber-600 hover:to-sky-600 text-white font-jua text-2xl sm:text-3xl py-4 rounded-2xl shadow-xl border-b-4 border-amber-700 flex items-center justify-center gap-2.5">
-        <i class="fa-solid fa-play text-xl"></i>
-        <span>퀴즈 시작하기!</span>
-      </button>
-
-      <!-- Bottom Tags -->
-      <div class="flex flex-wrap justify-center gap-1.5 mt-2.5 text-[11px] text-slate-400 font-medium">
-        <span>#제9회평생학습박람회</span>
-        <span>#충주애</span>
-        <span>#문화관광퀴즈</span>
-        <span>#가이드평달이</span>
-        <span>#수달스티커</span>
+      <!-- Action Button -->
+      <div class="w-full mt-3">
+        <button id="btn-start-quiz" class="toy-btn w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white font-jua text-2xl sm:text-3xl py-3.5 rounded-2xl shadow-xl border-b-6 border-blue-900 flex items-center justify-center gap-2.5">
+          <i class="fa-solid fa-play text-xl text-amber-300"></i>
+          <span>퀴즈 시작하기!</span>
+        </button>
       </div>
     </section>
 
-    <section id="screen-quiz" class="flex-1 flex flex-col p-4 sm:p-6 hidden">
+    <section id="screen-quiz" class="flex-1 flex flex-col p-4 sm:p-5 hidden">
       
-      <!-- Quiz Progress & 20-Second Countdown Header -->
-      <div class="flex items-center justify-between mb-2.5">
+      <!-- Quiz Progress Header -->
+      <div class="flex items-center justify-between mb-2">
         <div class="flex items-center space-x-2">
-          <span id="quiz-question-badge" class="bg-sky-600 text-white font-jua text-sm sm:text-base px-3 py-1 rounded-xl shadow-sm">
+          <span id="quiz-question-badge" class="bg-blue-600 text-white font-jua text-sm sm:text-base px-3 py-1 rounded-xl shadow-md">
             문제 1 / 5
           </span>
-          <span class="text-xs text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md font-bold hidden sm:inline-flex items-center gap-1">
+          <span class="text-xs text-blue-900 bg-blue-100 px-2 py-0.5 rounded-md font-bold hidden sm:inline-flex items-center gap-1">
             <span>🐾</span> 평달이 출제
           </span>
         </div>
         
-        <!-- 20-Second Countdown Timer -->
-        <div class="flex items-center space-x-1.5 bg-slate-100 px-3.5 py-1.5 rounded-full border border-slate-200 shadow-inner">
-          <i id="timer-icon" class="fa-regular fa-clock text-sky-600 text-base"></i>
-          <span id="quiz-timer-text" class="font-jua text-lg text-slate-800 w-12 text-center">20초</span>
+        <!-- Timer Badge: Guaranteed 1-line display with min-w and whitespace-nowrap -->
+        <div id="quiz-timer-container" class="flex items-center space-x-1.5 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 shadow-inner min-w-[84px] sm:min-w-[96px] justify-center whitespace-nowrap shrink-0">
+          <i id="timer-icon" class="fa-regular fa-clock text-blue-600 text-sm"></i>
+          <span id="quiz-timer-text" class="font-jua text-base sm:text-lg text-slate-800 leading-none whitespace-nowrap text-center">20초</span>
         </div>
       </div>
 
       <!-- Animated Progress Bar -->
-      <div class="w-full bg-slate-100 rounded-full h-3 mb-3.5 overflow-hidden border border-slate-200 shadow-inner">
-        <div id="quiz-timer-bar" class="bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500 h-full w-full rounded-full transition-all duration-1000 ease-linear"></div>
+      <div class="w-full bg-slate-200/80 rounded-full h-2.5 mb-3 overflow-hidden border border-slate-300 shadow-inner">
+        <div id="quiz-timer-bar" class="bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500 h-full w-full rounded-full transition-all duration-1000 ease-linear shadow-md"></div>
       </div>
 
       <!-- Question Card -->
-      <div class="bg-gradient-to-b from-sky-50 to-white border-2 border-sky-200 rounded-3xl p-4 sm:p-6 shadow-md mb-3 flex-1 flex flex-col justify-between relative overflow-hidden">
+      <div class="clay-card p-4 sm:p-5 mb-3 flex-1 flex flex-col justify-between relative overflow-hidden">
         
-        <!-- Category & Audio Assist Pill -->
+        <!-- Category & Audio Pill -->
         <div class="flex items-center justify-between mb-2">
-          <span id="quiz-category" class="text-xs font-extrabold text-sky-700 bg-sky-100 px-2.5 py-1 rounded-lg">
+          <span id="quiz-category" class="text-xs font-black text-blue-700 bg-blue-100/90 px-3 py-1 rounded-xl shadow-xs border border-blue-200">
             [충주 명소]
           </span>
           
-          <!-- TTS Voice Button -->
-          <button id="btn-read-aloud" class="btn-press bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-sm transition" title="문제를 말소리로 읽어줍니다">
+          <button id="btn-read-aloud" class="toy-btn bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5 shadow-xs transition" title="문제를 듣는 동안에는 시간이 멈춥니다!">
             <i class="fa-solid fa-volume-high text-amber-600"></i>
-            <span id="tts-label">소리로 듣기</span>
+            <span id="tts-label">소리로 듣기 (시간 일시정지)</span>
           </button>
         </div>
 
         <!-- Question Text -->
         <div class="my-auto py-2">
-          <p id="quiz-question-text" class="text-xl sm:text-2xl font-black text-slate-800 leading-snug tracking-tight text-center break-keep transition-all">
+          <p id="quiz-question-text" class="text-xl sm:text-2xl font-black text-slate-800 leading-snug tracking-tight text-center break-keep">
             충주의 대표 명품 과일인 '충주 사과'는 빨갛고 아삭하며 달콤하기로 유명하다?
           </p>
         </div>
 
         <!-- Hint trigger button -->
-        <div class="pt-2 border-t border-sky-100 flex justify-center">
-          <button id="btn-show-hint" class="btn-press bg-white hover:bg-sky-50 text-sky-700 border border-sky-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-sm transition">
+        <div class="pt-2 border-t border-slate-100 flex justify-center">
+          <button id="btn-show-hint" class="toy-btn bg-white hover:bg-slate-50 text-blue-700 border-2 border-blue-200 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs">
             <i class="fa-solid fa-lightbulb text-amber-500"></i>
             <span>도움말(힌트) 보기</span>
           </button>
         </div>
       </div>
 
-      <!-- Pure Large OX Buttons (No extra labels) -->
+      <!-- 3D Soft Vinyl OX Buttons: Extra-bold font, zero border -->
       <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-2">
         <!-- O Button -->
-        <button id="btn-choose-o" class="btn-press group flex items-center justify-center py-7 sm:py-9 bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 active:from-emerald-700 active:to-emerald-800 text-white rounded-3xl shadow-xl border-b-6 border-emerald-800 transition duration-150" aria-label="선택 O">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white/90 flex items-center justify-center bg-white/10 group-hover:scale-110 group-active:scale-95 transition-transform shadow-inner">
-            <span class="font-jua text-6xl sm:text-7xl leading-none select-none drop-shadow-md">O</span>
-          </div>
+        <button id="btn-choose-o" class="vinyl-ox-btn toy-btn flex items-center justify-center py-6 sm:py-8 bg-gradient-to-b from-emerald-400 via-emerald-500 to-emerald-600 text-white rounded-3xl shadow-xl border-b-6 border-emerald-800" aria-label="선택 O">
+          <span class="font-black text-7xl sm:text-8xl leading-none select-none drop-shadow-md font-sans">O</span>
         </button>
 
         <!-- X Button -->
-        <button id="btn-choose-x" class="btn-press group flex items-center justify-center py-7 sm:py-9 bg-gradient-to-b from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 active:from-rose-700 active:to-rose-800 text-white rounded-3xl shadow-xl border-b-6 border-rose-900 transition duration-150" aria-label="선택 X">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white/90 flex items-center justify-center bg-white/10 group-hover:scale-110 group-active:scale-95 transition-transform shadow-inner">
-            <span class="font-jua text-6xl sm:text-7xl leading-none select-none drop-shadow-md">X</span>
-          </div>
+        <button id="btn-choose-x" class="vinyl-ox-btn toy-btn flex items-center justify-center py-6 sm:py-8 bg-gradient-to-b from-rose-400 via-rose-500 to-rose-600 text-white rounded-3xl shadow-xl border-b-6 border-rose-900" aria-label="선택 X">
+          <span class="font-black text-7xl sm:text-8xl leading-none select-none drop-shadow-md font-sans">X</span>
         </button>
       </div>
 
@@ -256,92 +303,87 @@
       </p>
     </section>
 
-    <!-- Full Screen Transition Feedback Screen (Covers entire area below header) -->
-    <section id="screen-feedback" class="flex-1 flex flex-col justify-between p-4 sm:p-6 text-center hidden animate-in fade-in duration-200 overflow-y-auto">
+    <section id="screen-feedback" class="flex-1 flex flex-col justify-between p-4 sm:p-5 text-center hidden animate-in fade-in duration-200 overflow-hidden">
       
       <!-- Top Status Tag -->
-      <div class="flex items-center justify-between">
-        <div id="feedback-top-badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-sm">
+      <div class="flex items-center justify-between shrink-0 mb-1">
+        <div id="feedback-top-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-black shadow-xs">
           <i id="feedback-icon" class="fa-solid fa-circle-check"></i>
           <span id="feedback-status-text">정답 확인</span>
         </div>
-        <div id="feedback-tamdari-reaction" class="text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-sm">
+        <div id="feedback-tamdari-reaction" class="text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-xs">
           🐾 평달이의 한마디!
         </div>
       </div>
 
-      <!-- Center Hero Graphic & Result Message -->
-      <div class="my-auto py-3 flex flex-col items-center">
-        <div class="relative w-28 h-28 sm:w-32 sm:h-32 mb-3">
-          <div class="w-full h-full rounded-3xl overflow-hidden border-2 border-slate-200/80 shadow-md bg-white p-2 flex items-center justify-center">
-            <img id="feedback-tamdari-img" 
-                 src="https://raw.githubusercontent.com/hi763/vibecoding/main/tamdal_quiz.png" 
-                 alt="평달이 반응" 
-                 class="w-full h-full object-contain" 
-                 onerror="handleTamdariFallback(this)">
-          </div>
-          <span id="feedback-result-mark" class="absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl shadow-lg border-2 border-white">
-            <i class="fa-solid fa-check"></i>
-          </span>
+      <!-- Center Feedback Content: Pure Floating PNG without any box/frame/border -->
+      <div class="my-auto py-1 flex flex-col items-center justify-center w-full">
+        <!-- Frame removed: Pure character image floating directly on background -->
+        <div class="w-28 h-28 sm:w-32 sm:h-32 mb-1 flex items-center justify-center">
+          <img id="feedback-tamdari-img" 
+               src="https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal_02.png" 
+               alt="평달이 반응" 
+               class="w-full h-full object-contain toy-float select-none" 
+               onerror="handleTamdariFallback(this)">
         </div>
 
-        <h3 id="feedback-title" class="font-jua text-3xl sm:text-4xl tracking-tight mb-2">
+        <h3 id="feedback-title" class="font-jua text-2xl sm:text-3xl tracking-tight mb-2">
           정답입니다! 👏
         </h3>
 
-        <!-- Full-width Readable Explanation Card -->
-        <div id="feedback-card-container" class="w-full rounded-2xl p-4 sm:p-5 border-2 shadow-sm text-left my-2">
-          <div id="feedback-card-header" class="flex items-center gap-2 text-xs sm:text-sm font-black mb-1.5">
+        <!-- Full-width Readable Explanation Card (Large font, zero overflow scroll) -->
+        <div id="feedback-card-container" class="w-full rounded-2xl p-3.5 sm:p-4 shadow-sm text-left my-1">
+          <div id="feedback-card-header" class="flex items-center gap-2 text-xs sm:text-sm font-black mb-1">
             <i class="fa-solid fa-circle-info"></i>
             <span>상세 해설 및 충주 상식</span>
           </div>
-          <p id="feedback-explanation" class="text-base sm:text-lg font-bold leading-relaxed break-keep">
+          <p id="feedback-explanation" class="text-base sm:text-lg font-bold leading-snug break-keep">
             충주 탑평리 칠층석탑은 통일신라 시대의 국보 제6호로 흔히 '중앙탑'으로 불립니다.
           </p>
         </div>
       </div>
 
-      <!-- Bottom Next Question Button -->
-      <div class="pt-2">
-        <button id="btn-next-question" class="btn-press w-full py-4 sm:py-4.5 rounded-2xl text-white font-jua text-2xl sm:text-3xl shadow-xl flex items-center justify-center gap-3 transition-transform">
+      <!-- Next Question Button: Sized down by ~80% -->
+      <div class="pt-2 shrink-0">
+        <button id="btn-next-question" class="toy-btn w-full py-2.5 sm:py-3 rounded-xl text-white font-jua text-lg sm:text-xl shadow-md flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-700 border-b-4 border-blue-950">
           <span>다음 문제로</span>
-          <i class="fa-solid fa-arrow-right"></i>
+          <i class="fa-solid fa-arrow-right text-base"></i>
         </button>
       </div>
     </section>
 
-    <section id="screen-result" class="flex-1 flex flex-col items-center justify-between p-5 sm:p-7 text-center hidden">
+    <section id="screen-result" class="flex-1 flex flex-col items-center justify-between p-5 sm:p-6 text-center hidden">
       
-      <!-- Trophy & Headline -->
-      <div>
-        <div id="result-badge-container" class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-amber-100 border-4 border-amber-400 flex items-center justify-center text-3xl sm:text-4xl shadow-md mb-1.5">
+      <!-- Headline -->
+      <div class="shrink-0">
+        <div id="result-badge-container" class="w-12 h-12 sm:w-14 sm:h-14 mx-auto rounded-2xl bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-2xl sm:text-3xl shadow-sm mb-1">
           🏆
         </div>
-        <h2 id="result-headline" class="font-jua text-2xl sm:text-3xl text-slate-800 mb-1 leading-tight">
+        <h2 id="result-headline" class="font-jua text-2xl sm:text-3xl text-slate-800 mb-0.5 leading-tight">
           퀴즈 완료! 멋져요!
         </h2>
-        <p class="text-xs sm:text-sm text-sky-700 font-bold tracking-tight">
-          충주시평생학습박람회 충주愛(AI) 충주 어서오고 퀴즈
+        <p class="text-xs sm:text-sm text-blue-700 font-bold tracking-tight">
+          제 9회 충주시평생학습박람회 충주愛(AI) 충주 어서오고 퀴즈
         </p>
       </div>
 
-      <!-- Score & Enlarged Tamdari Reward Sticker Card -->
-      <div class="w-full bg-gradient-to-br from-amber-50 via-white to-sky-50 border-2 border-amber-200 rounded-3xl p-4 sm:p-5 shadow-lg my-2">
-        <div class="flex items-center justify-center gap-3 mb-2">
+      <!-- Sticker Card -->
+      <div class="w-full clay-card p-3.5 sm:p-4 shadow-lg my-1 flex-1 flex flex-col justify-between">
+        <div class="flex items-center justify-center gap-2 mb-1">
           <span class="text-slate-600 font-bold text-sm">획득 점수</span>
-          <span id="result-score-text" class="font-jua text-3xl sm:text-4xl text-sky-600">5 / 5</span>
+          <span id="result-score-text" class="font-jua text-3xl sm:text-4xl text-blue-600">5 / 5</span>
         </div>
 
-        <!-- Significantly Enlarged Tamdari Sticker Award Box -->
-        <div class="bg-white border-2 border-dashed border-amber-300 rounded-3xl p-4 sm:p-5 flex flex-col items-center shadow-inner">
-          <div class="w-40 h-40 sm:w-48 sm:h-48 mb-3 p-2 bg-gradient-to-tr from-amber-50 via-white to-orange-50 rounded-3xl border-2 border-amber-200 shadow-md flex items-center justify-center overflow-hidden">
+        <!-- Award Box -->
+        <div class="bg-white border-2 border-dashed border-amber-300 rounded-3xl p-3 flex flex-col items-center shadow-inner my-auto">
+          <div class="w-32 h-32 sm:w-36 sm:h-36 mb-1.5 flex items-center justify-center">
             <img id="result-tamdari-img" 
                  src="https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal_sticker.png" 
                  alt="평달이 수료 스티커" 
-                 class="w-full h-full object-contain filter drop-shadow-xl hover:scale-105 transition-transform duration-300" 
+                 class="w-full h-full object-contain filter drop-shadow-lg hover:scale-105 transition-transform duration-300" 
                  onerror="handleTamdariFallback(this)">
           </div>
-          <div id="result-sticker-name" class="font-jua text-lg sm:text-2xl text-amber-900 mb-1.5">
+          <div id="result-sticker-name" class="font-jua text-base sm:text-lg text-amber-900 mb-0.5">
             평달이와 함께하는 1등 탐험가 스티커
           </div>
           <p id="result-sticker-desc" class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed break-keep">
@@ -349,38 +391,77 @@
             부스에서 귀여운 평달이 스티커를 받으세요!
           </p>
         </div>
+
+        <!-- AI Travel Course Recommender Button (Opens Dedicated Modal Popup) -->
+        <div class="mt-2 w-full">
+          <button id="btn-open-ai-modal" class="toy-btn w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-jua text-xs sm:text-sm py-2.5 rounded-xl shadow-md border-b-3 border-teal-800 flex items-center justify-center gap-2">
+            <span>🗺️ AI 평달이의 맞춤 충주 당일치기 코스 추천 받기</span>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </button>
+        </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="w-full space-y-2">
-        <button id="btn-restart-quiz" class="btn-press w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-jua text-xl py-3 rounded-2xl shadow-lg border-b-4 border-emerald-800 flex items-center justify-center gap-2">
+      <!-- Action Buttons (Never obstructed) -->
+      <div class="w-full space-y-1.5 shrink-0">
+        <button id="btn-restart-quiz" class="toy-btn w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-jua text-lg py-2.5 rounded-xl shadow-md border-b-4 border-blue-900 flex items-center justify-center gap-2">
           <i class="fa-solid fa-rotate-right"></i>
           <span>한 번 더 풀기 (새로운 문제)</span>
         </button>
 
-        <button id="btn-go-home" class="btn-press w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm py-2.5 rounded-xl border border-slate-300 transition">
+        <button id="btn-go-home" class="toy-btn w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2 rounded-xl border border-slate-300 transition">
           처음 화면으로 돌아가기
         </button>
       </div>
-
-      <!-- Footer Note -->
-      <p class="text-[10px] sm:text-[11px] text-slate-400 mt-2">
-        충주시 평생학습관 ∙ 제9회 평생학습박람회 부스 운영용 웹앱
-      </p>
     </section>
 
-    <div id="modal-hint" class="absolute inset-0 bg-slate-900/50 backdrop-blur-xs z-40 flex items-center justify-center p-5 hidden">
+    <div id="modal-hint" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs z-40 flex items-center justify-center p-5 hidden">
       <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl border-4 border-amber-300">
-        <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-3">
+        <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mb-3 shadow-inner">
           <i class="fa-regular fa-lightbulb"></i>
         </div>
-        <h4 class="font-jua text-2xl text-slate-800 mb-2">평달이의 힌트</h4>
-        <div class="bg-amber-50 rounded-xl p-3.5 mb-4 border border-amber-200 text-slate-700 text-xs sm:text-sm font-medium leading-relaxed" id="hint-modal-text">
+        <h4 class="font-jua text-2xl sm:text-3xl text-slate-800 mb-2">평달이의 힌트</h4>
+        
+        <!-- Hint Modal Text -->
+        <div class="bg-amber-50 rounded-2xl p-4 mb-4 border border-amber-200 text-slate-800 text-base sm:text-lg font-bold leading-relaxed shadow-xs" id="hint-modal-text">
           충주의 이 석탑은 신라 원성왕 때 국토의 정중앙에 위치한다고 하여 별칭이 붙었습니다!
         </div>
-        <button id="btn-close-hint" class="btn-press w-full bg-amber-500 hover:bg-amber-600 text-white font-jua text-lg py-2.5 rounded-xl shadow border-b-2 border-amber-700">
+        
+        <button id="btn-close-hint" class="toy-btn w-full bg-amber-500 hover:bg-amber-600 text-white font-jua text-lg sm:text-xl py-3 rounded-xl shadow border-b-4 border-amber-700">
           이해했어요! 풀러가기
         </button>
+      </div>
+    </div>
+
+    <div id="modal-ai-travel" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+      <div class="bg-white rounded-3xl max-w-sm w-full p-5 text-center shadow-2xl border-4 border-emerald-400 flex flex-col max-h-[85vh] overflow-hidden">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between border-b pb-2 mb-3">
+          <div class="flex items-center gap-1.5 text-emerald-800 font-jua text-lg">
+            <span>🗺️</span> AI 평달이의 추천 코스
+          </div>
+          <button id="btn-close-ai-modal" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-base">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Modal Content (Scrollable if course is long) -->
+        <div class="bg-emerald-50/60 rounded-2xl p-3.5 border border-emerald-200 text-left overflow-y-auto flex-1 mb-3">
+          <p id="ai-travel-modal-text" class="text-xs sm:text-sm text-slate-700 font-semibold leading-relaxed break-keep whitespace-pre-line">
+            작성 중...
+          </p>
+        </div>
+
+        <!-- Regenerate / Close Buttons in Modal -->
+        <div class="flex items-center gap-2">
+          <button id="btn-regenerate-ai-course" class="toy-btn flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-jua text-sm py-2.5 rounded-xl shadow border-b-3 border-emerald-900 flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span>다른 코스 보기</span>
+          </button>
+          <button id="btn-confirm-ai-modal" class="toy-btn px-5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-sm py-2.5 rounded-xl border border-slate-300">
+            닫기
+          </button>
+        </div>
       </div>
     </div>
 
@@ -390,195 +471,150 @@
   <audio id="bgm-audio" loop preload="auto" src="https://raw.githubusercontent.com/hi763/chungjuAI/main/images/bgm.mp3"></audio>
 
   <script>
-    // 20-Question Full Bank for Chungju Culture & Tourism
-    const CHUNGJU_QUIZ_BANK = [
-      {
-        id: 1,
-        category: "충주 대표과일",
-        question: "충주의 가장 대표적인 명품 과일인 '충주 사과'는 빨갛고 아삭하며 달콤하기로 전국에 유명하다?",
-        answer: true,
-        hint: "빨갛고 새콤달콤해서 가로수길 나무에도 탐스럽게 열리는 과일이에요!",
-        explanation: "정답입니다! 충주는 햇살이 풍부하고 일교차가 커서 전국 최고로 달콤하고 아삭한 사과가 자랍니다."
-      },
-      {
-        id: 2,
-        category: "충주 명소",
-        question: "충주 탑평리 칠층석탑은 우리나라 국토의 정중앙에 위치하여 흔히 '중앙탑'이라 불린다?",
-        answer: true,
-        hint: "신라 시대에 한반도의 한가운데 지점에 세운 탑이라 '중앙'이라는 이름이 붙었어요!",
-        explanation: "맞습니다! 통일신라 시대 나라의 중심에 세워져 지금까지 친근하게 '중앙탑'으로 불리고 있습니다."
-      },
-      {
-        id: 3,
-        category: "충주호 상식",
-        question: "내륙의 바다라고 불릴 만큼 넓은 '충주호'는 동해 바닷물이 들어오는 짠물(소금물) 호수이다?",
-        answer: false,
-        hint: "남한강의 맑고 깨끗한 민물을 담아둔 국내 최대 규모의 다목적 담수 인공호수예요!",
-        explanation: "틀렸습니다! 충주호는 바닷물이 아니라 남한강의 맑은 민물을 모아둔 거대한 민물 호수입니다."
-      },
-      {
-        id: 4,
-        category: "따뜻한 힐링",
-        question: "53℃ 천연 온천수로 유명한 충주의 '수안보온천'은 따뜻한 온천욕을 즐길 수 있는 힐링 명소이다?",
-        answer: true,
-        hint: "조선 태조 이성계도 피부 치료와 휴식을 위해 찾았던 왕의 온천이랍니다!",
-        explanation: "정답입니다! 수안보온천은 지하 250m에서 자연 용출되는 따뜻하고 매끄러운 천연 온천수입니다."
-      },
-      {
-        id: 5,
-        category: "박람회 캐릭터",
-        question: "충주시평생학습박람회 공식 가이드 캐릭터 '평달이'는 사막에 사는 커다란 낙타이다?",
-        answer: false,
-        hint: "나뭇잎 모자를 쓰고 충주의 맑은 물가를 좋아하는 귀여운 수달 친구예요!",
-        explanation: "틀렸습니다! 평달이는 낙타가 아니라 충주의 맑은 물줄기를 사랑하는 친절하고 귀여운 수달입니다!"
-      },
-      {
-        id: 6,
-        category: "역사 명승지",
-        question: "가야금의 명인 우륵 선생이 아름다운 가야금을 연주했던 충주의 대표 명승지는 '탄금대'이다?",
-        answer: true,
-        hint: "'금을 연주한 언덕'이라는 뜻을 가진 남한강변의 절경이에요!",
-        explanation: "맞습니다! 탄금대는 신라 우륵 선생이 가야금을 타던 곳이자, 신립 장군의 호국 역사가 깃든 명승지입니다."
-      },
-      {
-        id: 7,
-        category: "이색 체험",
-        question: "시원한 충주 '활옥동굴' 안에서는 맑은 호수 연못 위에서 투명 카약(보트)을 탈 수 있다?",
-        answer: true,
-        hint: "동굴 속 물길을 따라 카약을 타며 헤엄치는 물고기도 구경할 수 있어요!",
-        explanation: "정답입니다! 활옥동굴은 연중 시원한 옛 광산 동굴 안에서 카약을 즐기는 충주의 대표 인기 관광지입니다."
-      },
-      {
-        id: 8,
-        category: "전통 무예",
-        question: "\"이크, 에크!\" 독특한 기합 소리로 상대를 배려하며 발을 쓰는 충주의 유네스코 전통 무예는 '축구'이다?",
-        answer: false,
-        hint: "부드럽고 굼실거리는 몸짓이 특징인 우리나라 고유의 전통 무술 '택견'이에요!",
-        explanation: "틀렸습니다! 축구가 아니라 유네스코 인류무형문화유산으로 등재된 자랑스러운 우리 무예 '택견'입니다."
-      },
-      {
-        id: 9,
-        category: "자연/드라마",
-        question: "드라마 '사랑의 불시착' 촬영지이자 가을철 은빛 갈대와 억새가 장관을 이루는 충주의 쉼터는 '비내섬'이다?",
-        answer: true,
-        hint: "남한강 물길 옆에 펼쳐진 국가습지보호구역으로 가을 산책하기 참 좋아요!",
-        explanation: "맞습니다! 비내섬은 자연 그대로의 억새와 강물이 어우러져 수많은 영화와 드라마의 배경이 된 명소입니다."
-      },
-      {
-        id: 10,
-        category: "충주 특산물",
-        question: "충주 소태면의 명물 '충주 밤'은 높은 나무가 아니라 땅속에서 고구마처럼 캐내는 뿌리채소이다?",
-        answer: false,
-        hint: "가을철 밤나무 가지에 달린 가시 돋친 송이가 툭 벌어지면서 떨어지는 고소한 견과류예요!",
-        explanation: "틀렸습니다! 밤은 땅속 채소가 아니라 높은 밤나무 가지에서 탐스럽게 열리는 고소한 열매입니다."
-      },
-      {
-        id: 11,
-        category: "아름다운 야경",
-        question: "탄금호 '무지개길'은 밤이 되면 물 위에 화려하고 알록달록한 무지개빛 조명이 켜지는 예쁜 산책로이다?",
-        answer: true,
-        hint: "호수 수면 위를 걸으며 반짝이는 야경을 감상할 수 있는 명소예요!",
-        explanation: "정답입니다! 탄금호 무지개길은 밤마다 아름다운 무지개 조명이 켜져 낭만적인 밤 산책 코스로 유명합니다."
-      },
-      {
-        id: 12,
-        category: "자연/출렁다리",
-        question: "8개의 바위 봉우리와 아찔하고 멋진 출렁다리가 있어 차박·캠핑 성지로 유명한 충주 명소는 '수주팔봉'이다?",
-        answer: true,
-        hint: "물 위에 병풍처럼 늘어선 8개의 봉우리가 한 폭의 그림 같은 곳이에요!",
-        explanation: "맞습니다! 수주팔봉은 달천 강변의 맑은 물과 기암괴석 봉우리가 어우러진 충주의 대표 절경입니다."
-      },
-      {
-        id: 13,
-        category: "지역 이름 상식",
-        question: "'충청도'라는 도의 이름은 유서 깊은 두 고을인 '충주'와 '청주'의 앞 글자를 따서 지어졌다?",
-        answer: true,
-        hint: "경상도(경주+상주), 전라도(전주+나주)처럼 충청도는 충주가 대표 도시였어요!",
-        explanation: "정답입니다! 역사적으로 충북의 중심지였던 '충주'와 '청주'의 첫 글자가 합쳐져 충청도가 되었습니다."
-      },
-      {
-        id: 14,
-        category: "온천 상식",
-        question: "수안보온천수는 차가운 물을 커다란 보일러로 인위적으로 끓여서 만든 가짜 온천이다?",
-        answer: false,
-        hint: "지하 250m 암반층에서 식지 않고 53도로 자연스럽게 솟아오르는 진짜 천연 온천이에요!",
-        explanation: "틀렸습니다! 수안보온천은 기계로 데우지 않는 지하 53℃의 순수 천연 용출 온천수입니다."
-      },
-      {
-        id: 15,
-        category: "즐거운 체험",
-        question: "중앙탑 사적공원 안에서는 예쁜 한복이나 옛날 교복을 빌려 입고 멋진 기념사진을 찍을 수 있다?",
-        answer: true,
-        hint: "'입고찍고' 의상체험소에서 다양한 전통 의상을 대여해 입을 수 있어요!",
-        explanation: "정답입니다! 중앙탑 공원에서는 한복, 개화기 의상, 자전거 등을 빌려 즐거운 추억을 남길 수 있습니다."
-      },
-      {
-        id: 16,
-        category: "충주 별미",
-        question: "남한강 맑은 물에서 자란 송어에 채소와 고소한 콩가루, 초고추장을 넣고 비벼 먹는 충주의 별미는 '송어 비빔회'이다?",
-        answer: true,
-        hint: "고소한 콩가루와 쫄깃한 송어회가 어우러져 남녀노소 누구나 좋아하는 충주 음식이에요!",
-        explanation: "맞습니다! 맑은 물에서 자란 신선한 송어회에 콩가루와 야채를 비벼 먹는 송어 비빔회는 충주의 대표 맛입니다."
-      },
-      {
-        id: 17,
-        category: "역사 국보",
-        question: "우리나라에 현존하는 유일한 고구려 비석인 국보 '충주 고구려비'는 충주가 아니라 제주도에 있다?",
-        answer: false,
-        hint: "충주시 중앙탑면에 고구려비 전용 전시관이 자리 잡고 있답니다!",
-        explanation: "틀렸습니다! 한반도 유일의 고구려 석비인 국보 충주 고구려비는 충주시 중앙탑면에 당당히 보존되어 있습니다."
-      },
-      {
-        id: 18,
-        category: "가을 축제",
-        question: "매년 가을 가야금의 악성 우륵 선생을 기리며 충주에서 열리는 대표적인 향토 예술축제는 '우륵문화제'이다?",
-        answer: true,
-        hint: "가야금을 만드신 우륵 선생의 이름을 딴 유서 깊은 충주의 시민 축제예요!",
-        explanation: "정답입니다! 우륵문화제는 가야금 악성 우륵의 예술혼을 기리며 매년 열리는 충주의 대표 문화 축제입니다."
-      },
-      {
-        id: 19,
-        category: "충주 사과",
-        question: "충주 사과는 바나나처럼 노란 껍질을 손으로 술술 벗겨 먹는 열대 과일이다?",
-        answer: false,
-        hint: "빨갛고 둥글며 껍질째 아삭아삭 베어 물어 먹는 맛있는 과일이에요!",
-        explanation: "틀렸습니다! 충주 사과는 바나나가 아니라 빨갛고 새콤달콤한 과일로 전국 최고의 인기를 누리고 있습니다."
-      },
-      {
-        id: 20,
-        category: "평생학습박람회",
-        question: "제9회 충주시평생학습박람회는 어린이부터 어르신까지 온 가족이 함께 배우고 즐기는 시민 축제이다?",
-        answer: true,
-        hint: "'함께 배우고, 함께 즐기는 충주시평생학습관!' 누구나 참여할 수 있는 열린 축제예요!",
-        explanation: "정답입니다! 제9회 충주시평생학습박람회는 남녀노소 누구나 배움의 기쁨을 나누는 뜻깊은 배움 축제입니다."
+    function handleTamdariFallback(img) {
+      if (!img) return;
+      img.onerror = null;
+      img.src = "https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal.png";
+    }
+
+    // Web Audio API Synthesizer for high-quality instant sound effects
+    class SoundEffects {
+      constructor() {
+        this.ctx = null;
       }
+      init() {
+        if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      playClick() {
+        if (!isSoundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.08);
+      }
+      playCorrect() {
+        if (!isSoundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.1);
+          gain.gain.setValueAtTime(0.25, now + idx * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.1 + 0.28);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.1);
+          osc.stop(now + idx * 0.1 + 0.3);
+        });
+      }
+      playWrong() {
+        if (!isSoundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [320, 240].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.15);
+          gain.gain.setValueAtTime(0.22, now + idx * 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.15 + 0.25);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.15);
+          osc.stop(now + idx * 0.15 + 0.25);
+        });
+      }
+      playTick() {
+        if (!isSoundEnabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.05);
+      }
+    }
+    const sound = new SoundEffects();
+
+    const CHUNGJU_QUIZ_BANK = [
+      { id: 1, category: "충주 명소", question: "충주 탑평리 칠층석탑은 신라 원성왕 때 국토의 정중앙에 세워져 흔히 '중앙탑'이라 부른다?", answer: true, hint: "국보 제6호로, 탑 주변에 잔디 조각공원이 아름답게 조성되어 있어요!", explanation: "맞습니다! 통일신라 시대 한반도의 정중앙에 세웠다고 전해져 '중앙탑'이라는 친근한 별칭으로 불립니다." },
+      { id: 2, category: "충주 역사", question: "임진왜란 당시 신립 장군이 배수진을 쳤으며, 악성 우륵 선생이 가야금을 타던 명승지는 '탄금대'이다?", answer: true, hint: "남한강과 달천이 합류하는 곳에 위치한 명승지입니다.", explanation: "정답입니다! 탄금대는 우륵 선생의 예술혼과 신립 장군의 호국 충절이 함께 깃든 유서 깊은 명소입니다." },
+      { id: 3, category: "야경 산책", question: "밤마다 무지개빛 조명이 켜지는 탄금호 '무지개길'은 자동차만 빠르게 달릴 수 있는 유료 고속도로이다?", answer: false, hint: "호수 수면 위를 걸으며 야경을 만끽하는 부유식 보행 전용 다리예요!", explanation: "틀렸습니다! 탄금호 무지개길은 자동차가 아닌 사람들이 호수 위를 여유롭게 걷는 보행자 수변 산책로입니다." },
+      { id: 4, category: "자연 캠핑", question: "달천 물길에 병풍처럼 둘러선 8개의 바위 봉우리와 출렁다리로 유명한 충주의 명소는 '수주팔봉'이다?", answer: true, hint: "은빛 자갈밭과 절벽 풍경 덕분에 전국 최고의 캠핑 명소로 손꼽혀요!", explanation: "맞습니다! 수주팔봉은 8개의 봉우리가 달천 물결에 비치는 모습이 마치 한 폭의 동양화 같아 붙여진 이름입니다." },
+      { id: 5, category: "생태 명소", question: "광활한 갈대숲과 은빛 억새가 장관을 이루며 드라마 '사랑의 불시착' 촬영지로 유명한 곳은 '비내섬'이다?", answer: true, hint: "자연 생태적 가치를 인정받아 국가습지보호지역으로 지정되었어요!", explanation: "정답입니다! 앙성면에 위치한 비내섬은 가을철 억새 물결과 아름다운 노을로 유명한 생태 쉼터입니다." },
+      { id: 6, category: "충주 상식", question: "거대한 '내륙의 바다'라 불리는 충주호는 동해 바닷물이 그대로 들어오는 짠물 호수이다?", answer: false, hint: "충주댐 건설로 남한강 맑은 민물을 막아 만든 인공호수예요!", explanation: "틀렸습니다! 충주호는 짠 바닷물이 아니라 남한강 맑은 담수를 가둔 국내 최대 규모의 다목적 인공호수입니다." },
+      { id: 7, category: "온천 휴양", question: "53℃ 천연 온천수로 유명한 '수안보온천'은 조선 태조 이성계가 피부 치료를 위해 찾았던 '왕의 온천'이다?", answer: true, hint: "조선왕조실록에도 임금이 온천욕을 즐겼다는 공식 기록이 있어요!", explanation: "정답입니다! 수안보온천은 태조 이성계와 숙종이 찾은 유서 깊은 온천으로 지자체가 직접 온천수를 관리합니다." },
+      { id: 8, category: "온천 상식", question: "수안보온천수는 차가운 일반 수돗물을 보일러 기계로 끓여서 내보내는 인공 온천이다?", answer: false, hint: "지하 250m 암반층에서 53도의 고온으로 스스로 솟아나는 천연 온천수예요!", explanation: "틀렸습니다! 수안보온천은 보일러로 데우지 않고 지하에서 53℃의 고온으로 자연 용출되는 순수 천연 온천수입니다." },
+      { id: 9, category: "국보 문화재", question: "한반도에 현존하는 유일한 고구려 석비인 '충주 고구려비(국보)'는 충주가 아니라 평양에 있다?", answer: false, hint: "충주시 중앙탑면에 전용 전시관이 당당하게 자리 잡고 있어요!", explanation: "틀렸습니다! 국보 제205호인 충주 고구려비는 고구려의 남진 역사를 증명하며 충주시 중앙탑면에 보존되어 있습니다." },
+      { id: 10, category: "명품 특산물", question: "충주의 대표 과일인 '충주 사과'는 풍부한 일조량과 큰 일교차 덕분에 아삭하고 당도가 높기로 전국에 유명하다?", answer: true, hint: "빨갛고 달콤한 맛으로 충주 시내 가로수길에도 사과나무가 심어져 있어요!", explanation: "정답입니다! 충주는 일조량이 풍부하고 기온 차가 적절하여 꿀이 꽉 찬 전국 최고의 사과가 생산됩니다." },
+      { id: 11, category: "명품 특산물", question: "충주 소태면의 명물 특산물인 '충주 밤'은 고구마처럼 밭의 땅속 깊은 곳에서 캐내는 뿌리채소이다?", answer: false, hint: "가을철 높은 밤나무 가지에서 가시 돋친 송이가 벌어지며 열리는 견과류예요!", explanation: "틀렸습니다! 충주 밤은 땅속 채소가 아니라 높은 밤나무에서 수확하는 고소하고 달콤한 열매입니다." },
+      { id: 12, category: "전통 미식", question: "남한강 맑은 물에서 자란 송어에 콩가루, 채소, 초고추장을 비벼 먹는 충주의 별미는 '송어 비빔회'이다?", answer: true, hint: "선홍빛 쫄깃한 송어에 고소한 콩가루를 듬뿍 넣어 비벼 먹어요!", explanation: "맞습니다! 차갑고 깨끗한 남한강 물줄기에서 자란 송어로 만든 '송어 비빔회'는 충주의 대표 향토 미식입니다." },
+      { id: 13, category: "이색 체험", question: "충주 '활옥동굴'은 옛 백옥 광산을 관광지로 개발하여 동굴 속 호수에서 투명 카약을 탈 수 있는 명소이다?", answer: true, hint: "사계절 내내 서늘하고 신비로운 동굴 속에서 보트를 타며 물고기를 볼 수 있어요!", explanation: "정답입니다! 과거 활석 광산이었던 활옥동굴은 연중 시원한 온도 속에서 카약과 빛 조명을 즐길 수 있는 핫플레이스입니다." },
+      { id: 14, category: "지역 축제", question: "신라의 악성 우륵 선생의 예술혼을 기리며 매년 가을 충주에서 열리는 종합문화축제는 '우륵문화제'이다?", answer: true, hint: "1971년부터 이어져 온 충주에서 가장 유서 깊은 향토 예술 축제예요!", explanation: "맞습니다! 우륵문화제는 가야금을 만든 우륵 선생을 기리며 충주의 역사와 전통을 잇는 대표 시민 축제입니다." },
+      { id: 15, category: "유네스코 무예", question: "'이크! 에크!' 독특한 기합과 유려한 곡선의 발놀림이 특징이며 유네스코 인류무형문화유산에 등재된 충주의 전통 무예는 '축구'이다?", answer: false, hint: "부드러운 몸짓으로 상대를 배려하며 승부를 겨루는 무술은 '택견'입니다!", explanation: "틀렸습니다! 충주가 본고장이자 세계무술축제가 열리는 유네스코 등재 전통 무예는 축구가 아니라 '택견'입니다." },
+      { id: 16, category: "중앙탑 체험", question: "중앙탑 사적공원에서는 아름다운 한복을 빌려 입거나 자전거를 타고 호숫가를 달리는 체험을 즐길 수 있다?", answer: true, hint: "'입고찍고' 의상체험관과 탄금호 자전거 대여소가 활발하게 운영되고 있어요!", explanation: "정답입니다! 중앙탑 공원에서는 한복 및 교복 의상 대여, 피크닉 소품, 자전거 대여 등 다양한 힐링 체험이 가득합니다." },
+      { id: 17, category: "지명 유래", question: "'충청도(忠淸道)'라는 명칭은 역사적인 두 중심 고을인 '충주(忠州)'와 '청주(淸州)'의 앞 글자를 따서 지어졌다?", answer: true, hint: "경상도(경주+상주), 전라도(전주+나주)처럼 충청도 역시 충주가 으뜸 도시였어요!", explanation: "정답입니다! 충북의 오랜 중심지였던 충주(忠)와 청주(淸)의 머리글자를 합쳐 '충청도'라는 이름이 탄생했습니다." },
+      { id: 18, category: "휴양 명소", question: "충주호의 푸른 물결을 한눈에 내려다보며 숲속 힐링을 만끽할 수 있는 자연휴양림이 있는 충주의 산은 '계명산'이다?", answer: true, hint: "충주 시내와 가깝고 일출과 호수 풍경이 빼어난 명산이에요!", explanation: "맞습니다! 계명산 자연휴양림은 충주호의 시원한 조망과 울창한 숲속 힐링을 동시에 즐길 수 있는 휴식처입니다." },
+      { id: 19, category: "박람회 상식", question: "제9회 충주시평생학습박람회는 배움에 나이 제한이 없어 어린이부터 어르신까지 남녀노소 누구나 무료로 즐길 수 있다?", answer: true, hint: "평생학습은 온 가족이 함께 즐기고 성장하는 열린 축제예요!", explanation: "정답입니다! 충주시평생학습박람회는 시민 모두가 함께 배우고 나누는 따뜻한 전 세대 배움 축제입니다." },
+      { id: 20, category: "마스코트", question: "충주시평생학습관의 친절한 안내 가이드 캐릭터 '평달이'는 사막 모래밭에 사는 꼬리 긴 낙타이다?", answer: false, hint: "새싹 달린 모자를 쓰고 충주의 맑은 달천 물가에 사는 귀여운 수달 친구예요!", explanation: "틀렸습니다! '평달이'는 사막 낙타가 아니라 충주의 깨끗한 물가에 살며 배움의 기쁨을 전하는 친절한 가이드 수달입니다!" }
     ];
 
     const TOTAL_QUIZ_COUNT = 5;
-    const QUESTION_TIME_LIMIT = 20; // 20 seconds per question
+    const QUESTION_TIME_LIMIT = 20;
 
     let currentQuestions = [];
     let currentIndex = 0;
     let score = 0;
     let timerInterval = null;
     let remainingTime = QUESTION_TIME_LIMIT;
+    let isTimerPaused = false;
     let isSoundEnabled = true;
     let isLargeFont = false;
     let isSpeaking = false;
     let isBgmPlaying = false;
+    let bestSoftVoice = null;
     const BGM_NORMAL_VOLUME = 0.35;
-    const BGM_DUCKED_VOLUME = 0.08; // 문제 낭독 시 줄어드는 볼륨
+    const BGM_DUCKED_VOLUME = 0.08;
 
     const bgmAudio = document.getElementById('bgm-audio');
     const btnBgmToggle = document.getElementById('btn-bgm-toggle');
     const iconBgm = document.getElementById('icon-bgm');
-    const bgmSlash = document.getElementById('bgm-slash');
+    const btnSoundToggle = document.getElementById('btn-sound-toggle');
+    const iconSound = document.getElementById('icon-sound');
+    const btnFontToggle = document.getElementById('btn-font-toggle');
+    const appContainer = document.getElementById('app-container');
 
     const screenStart = document.getElementById('screen-start');
     const screenQuiz = document.getElementById('screen-quiz');
     const screenResult = document.getElementById('screen-result');
     const screenFeedback = document.getElementById('screen-feedback');
     const modalHint = document.getElementById('modal-hint');
+    const modalAiTravel = document.getElementById('modal-ai-travel');
 
     const btnStartQuiz = document.getElementById('btn-start-quiz');
     const btnChooseO = document.getElementById('btn-choose-o');
@@ -590,9 +626,11 @@
     const btnRestartQuiz = document.getElementById('btn-restart-quiz');
     const btnGoHome = document.getElementById('btn-go-home');
 
-    const btnSoundToggle = document.getElementById('btn-sound-toggle');
-    const iconSound = document.getElementById('icon-sound');
-    const btnFontToggle = document.getElementById('btn-font-toggle');
+    const btnOpenAiModal = document.getElementById('btn-open-ai-modal');
+    const btnCloseAiModal = document.getElementById('btn-close-ai-modal');
+    const btnConfirmAiModal = document.getElementById('btn-confirm-ai-modal');
+    const btnRegenerateAiCourse = document.getElementById('btn-regenerate-ai-course');
+    const aiTravelModalText = document.getElementById('ai-travel-modal-text');
 
     const quizQuestionBadge = document.getElementById('quiz-question-badge');
     const quizCategory = document.getElementById('quiz-category');
@@ -600,6 +638,7 @@
     const quizTimerText = document.getElementById('quiz-timer-text');
     const quizTimerBar = document.getElementById('quiz-timer-bar');
     const timerIcon = document.getElementById('timer-icon');
+    const quizTimerContainer = document.getElementById('quiz-timer-container');
 
     const feedbackTamdariImg = document.getElementById('feedback-tamdari-img');
     const feedbackIcon = document.getElementById('feedback-icon');
@@ -607,7 +646,6 @@
     const feedbackExplanation = document.getElementById('feedback-explanation');
     const feedbackStatusText = document.getElementById('feedback-status-text');
     const feedbackTopBadge = document.getElementById('feedback-top-badge');
-    const feedbackResultMark = document.getElementById('feedback-result-mark');
     const feedbackCardContainer = document.getElementById('feedback-card-container');
     const feedbackCardHeader = document.getElementById('feedback-card-header');
 
@@ -617,15 +655,17 @@
     const resultStickerDesc = document.getElementById('result-sticker-desc');
     const resultBadgeContainer = document.getElementById('result-badge-container');
 
-    // Fallback if raw image URL meets network blockage
-    window.handleTamdariFallback = function(img) {
-      img.onerror = null;
-      if (img.src.includes('github.com') && img.src.includes('/blob/')) {
-        img.src = img.src.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-        return;
-      }
-      img.src = "https://placehold.co/400x400/fef3c7/78350f?text=%ED%8F%89%EB%8B%AC%EC%9D%B4";
-    };
+    function updateBestVoice() {
+      if (!('speechSynthesis' in window)) return;
+      const voices = window.speechSynthesis.getVoices();
+      bestSoftVoice = voices.find(v => v.lang.includes('ko') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Yuna') || v.name.includes('SunHi'))) 
+                   || voices.find(v => v.lang.includes('ko')) 
+                   || null;
+    }
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = updateBestVoice;
+      updateBestVoice();
+    }
 
     function duckBgm() {
       if (bgmAudio && isBgmPlaying) {
@@ -639,23 +679,33 @@
       }
     }
 
+    function updateAudioToggleUI() {
+      if (isBgmPlaying) {
+        btnBgmToggle.className = "w-9 h-9 rounded-full flex items-center justify-center text-white transition-all shadow-md bg-emerald-500 hover:scale-105 active:scale-95";
+        if (iconBgm) iconBgm.className = "fa-solid fa-music text-sm";
+      } else {
+        btnBgmToggle.className = "w-9 h-9 rounded-full flex items-center justify-center text-white/75 transition-all shadow-inner bg-slate-400 hover:scale-105 active:scale-95";
+        if (iconBgm) iconBgm.className = "fa-solid fa-volume-xmark text-sm";
+      }
+
+      if (isSoundEnabled) {
+        btnSoundToggle.className = "w-9 h-9 rounded-full flex items-center justify-center text-white transition-all shadow-md bg-emerald-500 hover:scale-105 active:scale-95";
+        if (iconSound) iconSound.className = "fa-solid fa-volume-high text-sm";
+      } else {
+        btnSoundToggle.className = "w-9 h-9 rounded-full flex items-center justify-center text-white/75 transition-all shadow-inner bg-slate-400 hover:scale-105 active:scale-95";
+        if (iconSound) iconSound.className = "fa-solid fa-volume-xmark text-sm";
+      }
+    }
+
     function playBgm() {
       if (!bgmAudio) return;
       bgmAudio.volume = BGM_NORMAL_VOLUME;
       bgmAudio.play().then(() => {
         isBgmPlaying = true;
-        btnBgmToggle.classList.remove('opacity-60');
-        if (bgmSlash) bgmSlash.classList.add('hidden');
-        if (iconBgm) {
-          iconBgm.className = "fa-solid fa-music text-amber-300";
-        }
+        updateAudioToggleUI();
       }).catch(() => {
         isBgmPlaying = false;
-        btnBgmToggle.classList.add('opacity-60');
-        if (bgmSlash) bgmSlash.classList.remove('hidden');
-        if (iconBgm) {
-          iconBgm.className = "fa-solid fa-music text-white/70";
-        }
+        updateAudioToggleUI();
       });
     }
 
@@ -664,182 +714,84 @@
       if (isBgmPlaying) {
         bgmAudio.pause();
         isBgmPlaying = false;
-        btnBgmToggle.classList.add('opacity-60');
-        if (bgmSlash) bgmSlash.classList.remove('hidden');
-        if (iconBgm) {
-          iconBgm.className = "fa-solid fa-music text-white/70";
-        }
       } else {
         playBgm();
       }
+      updateAudioToggleUI();
     }
 
-    class SoundFX {
-      constructor() {
-        this.ctx = null;
+    function toggleSound() {
+      isSoundEnabled = !isSoundEnabled;
+      if (isSoundEnabled) {
+        sound.init();
+        sound.playClick();
+      } else {
+        stopSpeaking();
       }
-      init() {
-        if (!this.ctx) {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (AudioContextClass) {
-            this.ctx = new AudioContextClass();
-          }
-        }
-      }
-      playCorrect() {
-        if (!isSoundEnabled || !this.ctx) return;
-        this.ctx.resume().then(() => {
-          const now = this.ctx.currentTime;
-          const osc1 = this.ctx.createOscillator();
-          const osc2 = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-
-          osc1.type = 'triangle';
-          osc2.type = 'sine';
-          osc1.frequency.setValueAtTime(523.25, now);
-          osc1.frequency.exponentialRampToValueAtTime(783.99, now + 0.15);
-          osc2.frequency.setValueAtTime(659.25, now + 0.15);
-          osc2.frequency.exponentialRampToValueAtTime(1046.50, now + 0.35);
-
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-          osc1.connect(gain);
-          osc2.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc1.start(now);
-          osc2.start(now + 0.15);
-          osc1.stop(now + 0.2);
-          osc2.stop(now + 0.45);
-        });
-      }
-      playWrong() {
-        if (!isSoundEnabled || !this.ctx) return;
-        this.ctx.resume().then(() => {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-
-          osc.type = 'sawtooth';
-          osc.frequency.setValueAtTime(220, now);
-          osc.frequency.linearRampToValueAtTime(130, now + 0.3);
-
-          gain.gain.setValueAtTime(0.2, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start(now);
-          osc.stop(now + 0.35);
-        });
-      }
-      playClick() {
-        if (!isSoundEnabled || !this.ctx) return;
-        this.ctx.resume().then(() => {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(800, now);
-          gain.gain.setValueAtTime(0.1, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start(now);
-          osc.stop(now + 0.05);
-        });
-      }
-      playTick() {
-        if (!isSoundEnabled || !this.ctx) return;
-        this.ctx.resume().then(() => {
-          const now = this.ctx.currentTime;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(950, now);
-          gain.gain.setValueAtTime(0.04, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-
-          osc.start(now);
-          osc.stop(now + 0.03);
-        });
-      }
-    }
-    const sound = new SoundFX();
-
-    let koreanVoices = [];
-    let bestSoftVoice = null;
-
-    // 부드럽고 자연스러운 한국어 프리미엄 음성 우선 탐색 (크롬 Google 음성, 엣지 Natural 음성, 애플 Yuna 등)
-    function updateBestVoice() {
-      if (!('speechSynthesis' in window)) return;
-      const allVoices = window.speechSynthesis.getVoices();
-      koreanVoices = allVoices.filter(v => v.lang === 'ko-KR' || v.lang === 'ko' || v.lang.startsWith('ko'));
-
-      if (koreanVoices.length > 0) {
-        // 부드럽고 발음이 자연스러운 고품질 음성 순위 매칭
-        bestSoftVoice = koreanVoices.find(v => 
-          v.name.includes('Natural') || 
-          v.name.includes('Google 한국어') || 
-          v.name.includes('Yuna') || 
-          v.name.includes('SunHi') ||
-          v.name.includes('Heami')
-        ) || koreanVoices.find(v => !v.localService) || koreanVoices[0];
-      }
+      updateAudioToggleUI();
     }
 
-    if ('speechSynthesis' in window) {
-      updateBestVoice();
-      window.speechSynthesis.onvoiceschanged = updateBestVoice;
+    // Toggle Font Size: Only targets text elements without changing html rem root!
+    function toggleFontSize() {
+      sound.playClick();
+      isLargeFont = !isLargeFont;
+      if (isLargeFont) {
+        appContainer.classList.add('large-text-mode');
+        btnFontToggle.classList.remove('bg-white/25', 'hover:bg-white/40', 'text-white');
+        btnFontToggle.classList.add('bg-amber-400', 'text-slate-900', 'ring-2', 'ring-white');
+      } else {
+        appContainer.classList.remove('large-text-mode');
+        btnFontToggle.classList.remove('bg-amber-400', 'text-slate-900', 'ring-2', 'ring-white');
+        btnFontToggle.classList.add('bg-white/25', 'hover:bg-white/40', 'text-white');
+      }
     }
 
     function readTextAloud(textToSpeak) {
-      if (!('speechSynthesis' in window)) {
-        return;
-      }
+      if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
-
       updateBestVoice();
 
       const utterance = new SpeechSynthesisUtterance(textToSpeak);
       utterance.lang = 'ko-KR';
-
-      // 부드러운 음색(탐달이의 친근하고 편안한 톤)을 위한 최적 세팅
-      if (bestSoftVoice) {
-        utterance.voice = bestSoftVoice;
-      }
-      utterance.rate = 0.94;  // 너무 빠르거나 기계적이지 않고 또박또박 편안한 속도
-      utterance.pitch = 1.08; // 살짝 맑고 부드러운 친절 톤
+      if (bestSoftVoice) utterance.voice = bestSoftVoice;
+      utterance.rate = 0.94;
+      utterance.pitch = 1.08;
 
       const ttsLabel = document.getElementById('tts-label');
 
       utterance.onstart = () => {
         isSpeaking = true;
-        duckBgm(); // 문제를 읽어주는 동안 BGM 사운드 감소 (오디오 더킹)
-        if (ttsLabel) ttsLabel.innerText = "읽는 중...";
-        btnReadAloud.classList.add('ring-2', 'ring-amber-500', 'bg-amber-200');
+        isTimerPaused = true;
+        duckBgm();
+
+        if (ttsLabel) ttsLabel.innerText = "낭독 중 (시간 일시정지 중 ⏸️)";
+        btnReadAloud.classList.add('ring-3', 'ring-amber-400', 'bg-amber-200');
+        if (quizTimerContainer) {
+          quizTimerContainer.classList.add('bg-amber-100', 'border-amber-400');
+          quizTimerText.innerText = "일시정지";
+          quizTimerText.classList.remove('text-rose-600');
+        }
       };
-      utterance.onend = () => {
-        isSpeaking = false;
-        restoreBgm(); // 낭독이 끝나면 원래 볼륨으로 복원
-        if (ttsLabel) ttsLabel.innerText = "소리로 듣기";
-        btnReadAloud.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-200');
-      };
-      utterance.onerror = () => {
+
+      const finishSpeaking = () => {
         isSpeaking = false;
         restoreBgm();
-        if (ttsLabel) ttsLabel.innerText = "소리로 듣기";
-        btnReadAloud.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-200');
+
+        if (remainingTime < 10) {
+          remainingTime = 10;
+        }
+        isTimerPaused = false;
+
+        if (ttsLabel) ttsLabel.innerText = "소리로 듣기 (시간 일시정지)";
+        btnReadAloud.classList.remove('ring-3', 'ring-amber-400', 'bg-amber-200');
+        if (quizTimerContainer) {
+          quizTimerContainer.classList.remove('bg-amber-100', 'border-amber-400');
+        }
+        updateTimerDisplay();
       };
+
+      utterance.onend = finishSpeaking;
+      utterance.onerror = finishSpeaking;
 
       window.speechSynthesis.speak(utterance);
     }
@@ -849,38 +801,35 @@
         window.speechSynthesis.cancel();
       }
       isSpeaking = false;
+      isTimerPaused = false;
       restoreBgm();
       const ttsLabel = document.getElementById('tts-label');
-      if (ttsLabel) ttsLabel.innerText = "소리로 듣기";
-      btnReadAloud.classList.remove('ring-2', 'ring-amber-500', 'bg-amber-200');
-    }
-
-    function getRandomQuestions(bank, count) {
-      const shuffled = [...bank].sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, count);
+      if (ttsLabel) ttsLabel.innerText = "소리로 듣기 (시간 일시정지)";
+      btnReadAloud.classList.remove('ring-3', 'ring-amber-400', 'bg-amber-200');
+      if (quizTimerContainer) {
+        quizTimerContainer.classList.remove('bg-amber-100', 'border-amber-400');
+      }
     }
 
     function startQuiz() {
       sound.init();
       sound.playClick();
+      playBgm();
       stopSpeaking();
 
-      // 시작 버튼 터치 시 BGM 자동 시작
-      if (!isBgmPlaying) {
-        playBgm();
-      }
-
-      currentQuestions = getRandomQuestions(CHUNGJU_QUIZ_BANK, TOTAL_QUIZ_COUNT);
       currentIndex = 0;
       score = 0;
+
+      // Random selection of 5 questions from 20 bank
+      const shuffled = [...CHUNGJU_QUIZ_BANK].sort(() => 0.5 - Math.random());
+      currentQuestions = shuffled.slice(0, TOTAL_QUIZ_COUNT);
 
       screenStart.classList.add('hidden');
       screenResult.classList.add('hidden');
       screenFeedback.classList.add('hidden');
-      modalHint.classList.add('hidden');
       screenQuiz.classList.remove('hidden');
 
-      loadQuestion(currentIndex);
+      loadQuestion(0);
     }
 
     function loadQuestion(index) {
@@ -895,38 +844,44 @@
       quizCategory.innerText = `[${q.category}]`;
       quizQuestionText.innerText = q.question;
 
-      // Reset to 20 seconds
       remainingTime = QUESTION_TIME_LIMIT;
+      isTimerPaused = false;
       updateTimerDisplay();
 
       clearInterval(timerInterval);
       timerInterval = setInterval(() => {
-        remainingTime--;
-        updateTimerDisplay();
+        if (!isTimerPaused) {
+          remainingTime--;
+          updateTimerDisplay();
 
-        if (remainingTime <= 3 && remainingTime > 0) {
-          sound.playTick();
-        }
+          if (remainingTime <= 3 && remainingTime > 0) {
+            sound.playTick();
+          }
 
-        if (remainingTime <= 0) {
-          clearInterval(timerInterval);
-          handleTimeout();
+          if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            handleTimeout();
+          }
         }
       }, 1000);
     }
 
     function updateTimerDisplay() {
+      if (isTimerPaused) {
+        quizTimerText.innerText = "일시정지";
+        return;
+      }
       quizTimerText.innerText = `${remainingTime}초`;
       const percentage = (remainingTime / QUESTION_TIME_LIMIT) * 100;
       quizTimerBar.style.width = `${percentage}%`;
 
       if (remainingTime <= 4) {
         quizTimerText.classList.add('text-rose-600', 'font-black');
-        timerIcon.classList.remove('text-sky-600');
+        timerIcon.classList.remove('text-blue-600');
         timerIcon.classList.add('text-rose-600', 'animate-pulse');
       } else {
         quizTimerText.classList.remove('text-rose-600', 'font-black');
-        timerIcon.classList.add('text-sky-600');
+        timerIcon.classList.add('text-blue-600');
         timerIcon.classList.remove('text-rose-600', 'animate-pulse');
       }
     }
@@ -957,73 +912,64 @@
     function showFeedback(isCorrect, title, explanation) {
       const feedbackTamReaction = document.getElementById('feedback-tamdari-reaction');
 
-      // 퀴즈 문제 화면을 숨기고 피드백 화면으로 완전 전환
       screenQuiz.classList.add('hidden');
       screenFeedback.classList.remove('hidden');
 
       if (isCorrect) {
-        // 정답 피드백 이미지로 전환
         if (feedbackTamdariImg) {
           feedbackTamdariImg.src = "https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal_02.png";
         }
 
-        // 정답 시 에메랄드 테마
-        screenFeedback.className = "flex-1 flex flex-col justify-between p-4 sm:p-6 text-center animate-in fade-in duration-200 overflow-y-auto bg-gradient-to-b from-emerald-50/80 via-white to-emerald-50/50";
+        screenFeedback.className = "flex-1 flex flex-col justify-between p-4 sm:p-5 text-center animate-in fade-in duration-200 overflow-hidden bg-gradient-to-b from-emerald-50/50 via-white to-white";
 
-        feedbackTopBadge.className = "inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-sm bg-emerald-100 text-emerald-800 border border-emerald-300";
+        feedbackTopBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-xs bg-emerald-100 text-emerald-800 border border-emerald-200";
         feedbackIcon.className = "fa-solid fa-circle-check text-emerald-600";
         feedbackStatusText.innerText = "정답 확인";
 
-        feedbackTitle.className = "font-jua text-3xl sm:text-4xl text-emerald-700 tracking-tight mb-2";
-        feedbackResultMark.className = "absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl shadow-lg border-2 border-white bg-emerald-500";
-        feedbackResultMark.innerHTML = '<i class="fa-solid fa-check"></i>';
+        feedbackTitle.className = "font-jua text-2xl sm:text-3xl text-emerald-700 tracking-tight mb-2";
 
         if (feedbackTamReaction) {
           feedbackTamReaction.innerText = '🐾 평달이: "와아! 정답이에요!"';
-          feedbackTamReaction.className = "text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-sm bg-emerald-100 text-emerald-900 border border-emerald-300";
+          feedbackTamReaction.className = "text-xs sm:text-sm font-semibold px-3 py-1 rounded-full shadow-xs bg-emerald-50 text-emerald-900 border border-emerald-200/80";
         }
 
-        feedbackCardContainer.className = "w-full rounded-2xl p-4 sm:p-5 border-2 shadow-sm text-left my-2 bg-emerald-50/70 border-emerald-200";
-        feedbackCardHeader.className = "flex items-center gap-2 text-xs sm:text-sm font-black mb-1.5 text-emerald-800";
-        feedbackExplanation.className = "text-base sm:text-lg font-bold leading-relaxed break-keep text-slate-800";
+        feedbackCardContainer.className = "w-full rounded-2xl p-3.5 sm:p-4 shadow-xs text-left my-1 bg-emerald-50/50 border border-emerald-200/80";
+        feedbackCardHeader.className = "flex items-center gap-2 text-xs sm:text-sm font-bold mb-1 text-emerald-800";
+        feedbackExplanation.className = "text-base sm:text-lg font-bold leading-snug break-keep text-slate-800";
 
-        btnNextQuestion.className = "btn-press w-full py-4 sm:py-4.5 rounded-2xl text-white font-jua text-2xl sm:text-3xl shadow-xl flex items-center justify-center gap-3 transition-transform bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 border-b-4 border-emerald-800";
+        btnNextQuestion.className = "toy-btn w-full py-2.5 sm:py-3 rounded-xl text-white font-jua text-lg sm:text-xl shadow-md flex items-center justify-center gap-2 transition-transform bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 border-b-4 border-blue-950";
       } else {
-        // 오답 피드백 이미지로 전환
         if (feedbackTamdariImg) {
           feedbackTamdariImg.src = "https://raw.githubusercontent.com/hi763/chungjuAI/main/images/pyeongdal_03.png";
         }
 
-        // 오답 및 시간초과 시 로즈 테마
-        screenFeedback.className = "flex-1 flex flex-col justify-between p-4 sm:p-6 text-center animate-in fade-in duration-200 overflow-y-auto bg-gradient-to-b from-rose-50/80 via-white to-amber-50/50";
+        screenFeedback.className = "flex-1 flex flex-col justify-between p-4 sm:p-5 text-center animate-in fade-in duration-200 overflow-hidden bg-gradient-to-b from-rose-50/50 via-white to-white";
 
-        feedbackTopBadge.className = "inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black shadow-sm bg-rose-100 text-rose-800 border border-rose-300";
+        feedbackTopBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-xs bg-rose-100 text-rose-800 border border-rose-200";
         feedbackIcon.className = "fa-solid fa-circle-xmark text-rose-600";
         feedbackStatusText.innerText = "오답 확인";
 
-        feedbackTitle.className = "font-jua text-3xl sm:text-4xl text-rose-600 tracking-tight mb-2";
-        feedbackResultMark.className = "absolute -bottom-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl shadow-lg border-2 border-white bg-rose-500";
-        feedbackResultMark.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        feedbackTitle.className = "font-jua text-2xl sm:text-3xl text-rose-600 tracking-tight mb-2";
 
         if (feedbackTamReaction) {
           feedbackTamReaction.innerText = '🐾 평달이: "아쉬워요! 함께 알아볼까요?"';
-          feedbackTamReaction.className = "text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-sm bg-rose-100 text-rose-900 border border-rose-300";
+          feedbackTamReaction.className = "text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow-xs bg-rose-50 text-rose-900 border border-rose-200";
         }
 
-        feedbackCardContainer.className = "w-full rounded-2xl p-4 sm:p-5 border-2 shadow-sm text-left my-2 bg-rose-50/70 border-rose-200";
-        feedbackCardHeader.className = "flex items-center gap-2 text-xs sm:text-sm font-black mb-1.5 text-rose-800";
-        feedbackExplanation.className = "text-base sm:text-lg font-bold leading-relaxed break-keep text-slate-800";
+        feedbackCardContainer.className = "w-full rounded-2xl p-3.5 sm:p-4 shadow-xs text-left my-1 bg-rose-50/50 border border-rose-200/80";
+        feedbackCardHeader.className = "flex items-center gap-2 text-xs sm:text-sm font-bold mb-1 text-rose-800";
+        feedbackExplanation.className = "text-base sm:text-lg font-bold leading-snug break-keep text-slate-800";
 
-        btnNextQuestion.className = "btn-press w-full py-4 sm:py-4.5 rounded-2xl text-white font-jua text-2xl sm:text-3xl shadow-xl flex items-center justify-center gap-3 transition-transform bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 border-b-4 border-blue-800";
+        btnNextQuestion.className = "toy-btn w-full py-2.5 sm:py-3 rounded-xl text-white font-jua text-lg sm:text-xl shadow-md flex items-center justify-center gap-2 transition-transform bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-b-4 border-blue-950";
       }
 
       feedbackTitle.innerText = title;
       feedbackExplanation.innerText = explanation;
 
       if (currentIndex === TOTAL_QUIZ_COUNT - 1) {
-        btnNextQuestion.innerHTML = `<span>최종 결과 확인하기</span> <i class="fa-solid fa-trophy"></i>`;
+        btnNextQuestion.innerHTML = `<span>최종 결과 확인하기</span> <i class="fa-solid fa-trophy text-base"></i>`;
       } else {
-        btnNextQuestion.innerHTML = `<span>다음 문제로 (${currentIndex + 2}/${TOTAL_QUIZ_COUNT})</span> <i class="fa-solid fa-arrow-right"></i>`;
+        btnNextQuestion.innerHTML = `<span>다음 문제로 (${currentIndex + 2}/${TOTAL_QUIZ_COUNT})</span> <i class="fa-solid fa-arrow-right text-base"></i>`;
       }
     }
 
@@ -1070,10 +1016,81 @@
       }
     }
 
+    // Call Gemini API with standard gemini-3-flash-preview model and exponential backoff
+    async function callGeminiGenerate(prompt) {
+      const apiKey = ""; // Provided at runtime by environment
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const systemPrompt = "당신은 충주시 평생학습관의 공식 친절 가이드 수달 '평달이'입니다. 귀엽고 다정한 말투(해요체, 🐾)로 충주의 아름다운 여행지와 문화를 소개해 주세요.";
+
+      const payload = {
+        contents: [{ parts: [{ text: prompt }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] }
+      };
+
+      const delays = [1000, 2000, 4000];
+      for (let i = 0; i <= delays.length; i++) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text) return text;
+          }
+        } catch (e) {
+          // Silent retry
+        }
+        if (i < delays.length) {
+          await new Promise(res => setTimeout(res, delays[i]));
+        }
+      }
+      throw new Error("Failed after retries");
+    }
+
+    // Fetch and show AI Travel Course recommendation in Modal
+    async function fetchAiTravelCourse() {
+      if (!aiTravelModalText) return;
+      aiTravelModalText.innerText = "🗺️ 평달이가 맞춤형 힐링 당일치기 코스를 정성껏 계획하고 있어요...\n잠시만 기다려주세요! 🐾";
+
+      const prompt = `사용자가 충주 문화관광 퀴즈 5문제 중 ${score}문제를 맞혔습니다!
+사용자에게 선물할 충주 1일 당일치기 코스를 정성껏 짜주세요:
+[오전 일정] - [점심 추천 미식] - [오후 힐링 체험] - [저녁 환상 야경] 순서로 알기 쉽게 구분하고,
+마지막에 평달이 특유의 따뜻한 응원 멘트를 덧붙여주세요.`;
+
+      try {
+        const course = await callGeminiGenerate(prompt);
+        aiTravelModalText.innerText = course;
+      } catch (err) {
+        aiTravelModalText.innerText = `🗺️ 평달이의 추천 1일 힐링 코스:\n\n• [오전] 중앙탑 사적공원 의상체험 & 남한강 수변 산책\n• [점심] 남한강 명물 새콤달콤 송어 비빔회\n• [오후] 활옥동굴 시원한 투명 카약 체험 & 수안보 족욕길\n• [저녁] 탄금호 무지개길 환상적인 LED 야경 산책\n\n충주에서 평생 잊지 못할 행복한 추억 가득 담아가세요! 🐾`;
+      }
+    }
+
+    function openAiTravelModal() {
+      sound.playClick();
+      if (modalAiTravel) {
+        modalAiTravel.classList.remove('hidden');
+      }
+      fetchAiTravelCourse();
+    }
+
+    function closeAiTravelModal() {
+      sound.playClick();
+      if (modalAiTravel) {
+        modalAiTravel.classList.add('hidden');
+      }
+    }
+
     function openHint() {
       sound.playClick();
       const q = currentQuestions[currentIndex];
-      document.getElementById('hint-modal-text').innerText = q.hint;
+      if (q) {
+        document.getElementById('hint-modal-text').innerText = q.hint;
+      }
       modalHint.classList.remove('hidden');
     }
 
@@ -1082,43 +1099,16 @@
       modalHint.classList.add('hidden');
     }
 
-    function toggleSound() {
-      isSoundEnabled = !isSoundEnabled;
-      if (isSoundEnabled) {
-        iconSound.className = "fa-solid fa-volume-high";
-        btnSoundToggle.classList.replace('opacity-60', 'opacity-100');
-        sound.init();
-        sound.playClick();
-      } else {
-        iconSound.className = "fa-solid fa-volume-xmark";
-        btnSoundToggle.classList.add('opacity-60');
-        stopSpeaking();
-      }
-    }
-
-    function toggleFontSize() {
-      sound.playClick();
-      isLargeFont = !isLargeFont;
-      if (isLargeFont) {
-        quizQuestionText.classList.remove('text-xl', 'sm:text-2xl');
-        quizQuestionText.classList.add('text-2xl', 'sm:text-3xl');
-        btnFontToggle.classList.add('bg-amber-400', 'text-slate-900');
-      } else {
-        quizQuestionText.classList.remove('text-2xl', 'sm:text-3xl');
-        quizQuestionText.classList.add('text-xl', 'sm:text-2xl');
-        btnFontToggle.classList.remove('bg-amber-400', 'text-slate-900');
-      }
-    }
-
     function handleTTSRead() {
       sound.playClick();
       if (isSpeaking) {
         stopSpeaking();
-        return;
+      } else {
+        const q = currentQuestions[currentIndex];
+        if (q) {
+          readTextAloud(`문제 ${currentIndex + 1}번. ${q.question}`);
+        }
       }
-      const q = currentQuestions[currentIndex];
-      const speechString = `문제 번호 ${currentIndex + 1}번. 분야, ${q.category}. ${q.question}`;
-      readTextAloud(speechString);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -1128,7 +1118,7 @@
       btnNextQuestion.addEventListener('click', nextQuestion);
       btnRestartQuiz.addEventListener('click', startQuiz);
       btnBgmToggle.addEventListener('click', toggleBgm);
-      
+
       btnGoHome.addEventListener('click', () => {
         sound.playClick();
         stopSpeaking();
@@ -1146,9 +1136,18 @@
       btnSoundToggle.addEventListener('click', toggleSound);
       btnFontToggle.addEventListener('click', toggleFontSize);
 
-      // Keyboard & Accessibility Shortcuts
+      if (btnOpenAiModal) btnOpenAiModal.addEventListener('click', openAiTravelModal);
+      if (btnCloseAiModal) btnCloseAiModal.addEventListener('click', closeAiTravelModal);
+      if (btnConfirmAiModal) btnConfirmAiModal.addEventListener('click', closeAiTravelModal);
+      if (btnRegenerateAiCourse) {
+        btnRegenerateAiCourse.addEventListener('click', () => {
+          sound.playClick();
+          fetchAiTravelCourse();
+        });
+      }
+
       window.addEventListener('keydown', (e) => {
-        if (!screenQuiz.classList.contains('hidden') && screenFeedback.classList.contains('hidden') && modalHint.classList.contains('hidden')) {
+        if (!screenQuiz.classList.contains('hidden') && screenFeedback.classList.contains('hidden') && modalHint.classList.contains('hidden') && modalAiTravel.classList.contains('hidden')) {
           if (e.key === 'o' || e.key === 'O' || e.key === '1' || e.key === 'ArrowLeft') {
             handleAnswer(true);
           } else if (e.key === 'x' || e.key === 'X' || e.key === '2' || e.key === 'ArrowRight') {
